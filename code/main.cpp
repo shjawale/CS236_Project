@@ -27,6 +27,16 @@ int main (int argc, char* argv[]) {
 		return 1;
 	}
 
+	readByte = hdfsRead(fs, readFile, (void*)buffer, MAX_BUFFER_SIZE);
+	while(readByte > 0) {
+		cout << buffer;
+		memset(buffer, '\0', MAX_BUFFER_SIZE);
+		readByte = hdfsRead(fs, readFile, (void*)buffer, MAX_BUFFER_SIZE);
+	}
+	cout << endl;
+
+	hdfsCloseFile(fs, readFile);
+	hdfsDisconnect(fs);
 	
 	return 0;
 }
